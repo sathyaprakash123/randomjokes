@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  app:
+    image: 'movie-master'
+    build:
+      context: .
+    container_name: movie-master
+    depends_on:
+      - database
+    ports:
+      - 8030:8030
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/moviedatabase
+      - SPRING_DATASOURCE_USERNAME=sathya
+      - SPRING_DATASOURCE_PASSWORD=sathya
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  database:
+    image: 'postgres:13.1-alpine'
+    container_name: database
+    environment:
+      - POSTGRES_USER=sathya
+      - POSTGRES_PASSWORD=sathya
+      - POSTGRES_DB=moviedatabase
